@@ -27,7 +27,7 @@ counter = 0
 sleep = 1
 
 while True:
-    time.sleep(sleep)
+    # time.sleep(sleep)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
@@ -41,6 +41,16 @@ while True:
                 y -= 200
                 if y < 100:
                     y = 500
+                pygame.display.update()
+            elif event.key == pygame.K_d:
+                x += 300
+                if x > 700:
+                    x = 100
+                pygame.display.update()
+            elif event.key == pygame.K_a:
+                x -= 300
+                if x < 100:
+                    x = 700
                 pygame.display.update()
 
     screen.fill((255, 0, 0))
