@@ -18,11 +18,9 @@
 ## Installation
 
 1. Clone the repository:
-2. 
 2. Open the project directory:
-
-
-3. Run the game:
+3. Run main.py:
+4. Play the game.
 
 
 Note: Make sure you have Python 3 installed on your machine.
