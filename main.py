@@ -7,16 +7,6 @@ import pygame
 pygame.init()
 
 
-# def rat():
-#     threading.Timer(1.0, rat).start()
-#     pygame.draw.circle(
-#         surface=screen,
-#         color=(0, 255, 255),
-#         center=ball[random.randint(1, 9)],
-#         radius=50,
-#     )
-
-
 screen = pygame.display.set_mode((800, 600))
 
 pygame.display.set_caption("Thief Game ")
@@ -28,17 +18,25 @@ image = pygame.image.load(image_path)
 image_x = 50
 image_y = 100
 
-ball = {
-    1: (100, 100),
-    2: (400, 100),
-    3: (700, 100),
-    4: (100, 300),
-    5: (400, 300),
-    6: (700, 300),
-    7: (100, 500),
-    8: (400, 500),
-    9: (700, 500),
-}
+font = pygame.font.Font(None, 36)
+text_color = (255, 255, 255)
+
+text_x = 250
+text_y = 20
+
+pygame.display.flip()
+
+# ball = {
+#     1: (100, 100),
+#     2: (400, 100),
+#     3: (700, 100),
+#     4: (100, 300),
+#     5: (400, 300),
+#     6: (700, 300),
+#     7: (100, 500),
+#     8: (400, 500),
+#     9: (700, 500),
+# }
 
 ball_1 = {
     1: (50, 50),
@@ -56,11 +54,17 @@ x, y = 100, 100
 
 counter = 0
 sleep = 1
-temp = 0
+score = 0
+highest_score = 0
 
 
 while True:
+    if score == 200:
+        sleep = 0.5
     time.sleep(sleep)
+    score += 10
+    text_content = f"Score: {score}  / Highest Score: {highest_score}"
+    text_surface = font.render(text_content, True, text_color)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
@@ -98,25 +102,12 @@ while True:
     pygame.draw.circle(surface=screen, color=(0, 0, 0), center=(700, 500), radius=10)
 
     pygame.draw.circle(surface=screen, color=(0, 255, 0), center=(x, y), radius=50)
-    # pygame.draw.circle(
-    #     surface=screen,
-    #     color=(0, 255, 255),
-    #     center=ball[random.randint(1, 9)],
-    #     radius=50,
-    # )
-
-    screen.blit(image, ball_1[random.randint(1, 9)])
-
-    # temp += 1
-    # if temp > 5000:
-    #     pygame.draw.circle(
-    #         surface=screen,
-    #         color=(0, 255, 255),
-    #         center=ball[random.randint(1, 9)],
-    #         radius=50,
-    #     )
-    #     temp = 0
-
-    # print(temp)
+    random_value = random.randint(1, 9)
+    if ball_1[random_value][0] + 50 == x and ball_1[random_value][1] + 50 == y:
+        if highest_score < score:
+            highest_score = score
+        score = 0
+    screen.blit(image, ball_1[random_value])
+    screen.blit(text_surface, (text_x, text_y))
     pygame.display.update()
     counter += 1
